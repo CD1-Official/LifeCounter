@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Life Counter Setup</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 2rem;
+      background: #f4f4f4;
+    }
+    h1 {
+      text-align: center;
+    }
+    .input-section {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    .player-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+    }
+    .player-card {
+      background: white;
+      border-radius: 8px;
+      padding: 1rem;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      width: 200px;
+      text-align: center;
+    }
+    .nickname {
+      width: 100%;
+      padding: 0.5rem;
+      margin-bottom: 0.5rem;
+      font-size: 1rem;
+    }
+    .life-total {
+      font-size: 2rem;
+      margin: 0.5rem 0;
+    }
+    .btn-group button {
+      padding: 0.5rem 1rem;
+      margin: 0 0.25rem;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <h1>🧍 How Many Players?</h1>
+  <div class="input-section">
+    <input type="number" id="playerCount" min="1" max="20" placeholder="Enter number of players" />
+    <button onclick="generatePlayers()">Start</button>
+  </div>
+  <div class="player-container" id="playerContainer"></div>
+
+  <script>
+    function generatePlayers() {
+      const count = parseInt(document.getElementById('playerCount').value);
+      const container = document.getElementById('playerContainer');
+      container.innerHTML = '';
+
+      for (let i = 0; i < count; i++) {
+        const card = document.createElement('div');
+        card.className = 'player-card';
+
+        const nickname = document.createElement('input');
+        nickname.className = 'nickname';
+        nickname.placeholder = `Player ${i + 1} nickname`;
+
+        const lifeTotal = document.createElement('div');
+        lifeTotal.className = 'life-total';
+        lifeTotal.textContent = '20';
+
+        const btnGroup = document.createElement('div');
+        btnGroup.className = 'btn-group';
+
+        const plusBtn = document.createElement('button');
+        plusBtn.textContent = '+';
+        plusBtn.onclick = () => {
+          lifeTotal.textContent = parseInt(lifeTotal.textContent) + 1;
+        };
+
+        const minusBtn = document.createElement('button');
+        minusBtn.textContent = '−';
+        minusBtn.onclick = () => {
+          lifeTotal.textContent = parseInt(lifeTotal.textContent) - 1;
+        };
+
+        btnGroup.appendChild(minusBtn);
+        btnGroup.appendChild(plusBtn);
+
+        card.appendChild(nickname);
+        card.appendChild(lifeTotal);
+        card.appendChild(btnGroup);
+
+        container.appendChild(card);
+      }
+    }
+  </script>
+</body>
+</html>
